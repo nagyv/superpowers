@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Use when you have a behavioural spec or requirements for a multi-step task, before touching code
 ---
 
 # Writing Plans
@@ -13,7 +13,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
+**Context:** This should be run after writing-behavioural-specs has produced approved behavioural scenarios. Use the spec document as your primary input — every plan task should trace back to one or more scenarios from the spec.
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
@@ -36,6 +36,8 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
+
+**Behavioural spec:** `docs/plans/YYYY-MM-DD-<feature-name>-spec.md`
 
 **Architecture:** [2-3 sentences about approach]
 
