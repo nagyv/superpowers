@@ -105,7 +105,7 @@ For scenarios with multiple outcomes or variations, use a table:
 
 After defining edge cases, identify assumptions where your "common sense" default might be wrong. These are cases where domain knowledge, business rules, or user expectations could differ from what seems obvious.
 
-**One at a time.** Present each risky assumption as a single question. Do not batch them. Wait for the user's answer before moving to the next one. This mirrors the brainstorming skill's one-question-at-a-time pattern — it prevents overwhelming the user and lets each answer inform how you frame the next question.
+**One at a time.** Present each risky assumption as a single question. Do not batch them. Wait for the user's answer before moving to the next one. It prevents overwhelming the user and lets each answer inform how you frame the next question.
 
 **What makes an assumption risky:**
 - The correct behaviour depends on business context you don't have (e.g., "should expired tokens return 401 or silently refresh?")
@@ -116,7 +116,7 @@ After defining edge cases, identify assumptions where your "common sense" defaul
 **How to present each assumption:**
 1. State the edge case or scenario concretely
 2. Explain what you assumed and why
-3. Ask what should actually happen — solicit the answer, don't just confirm your guess
+3. Ask what should actually happen — solicit the answer, don't just confirm your guess. Use the `AskUserQuestion` tool.
 
 **Example:**
 
