@@ -29,19 +29,31 @@ digraph spec_process {
     "Read design doc" [shape=box];
     "Identify actors and actions" [shape=box];
     "Write behavioural scenarios" [shape=box];
+    "Present scenarios for approval" [shape=box];
+    "User approves scenarios?" [shape=diamond];
     "Define edge cases and error behaviours" [shape=box];
+    "Surface risky assumptions\none at a time" [shape=box];
+    "More assumptions?" [shape=diamond];
+    "Write final spec" [shape=box];
     "Present spec to user for review" [shape=box];
-    "User approves?" [shape=diamond];
+    "User approves spec?" [shape=diamond];
     "Save spec doc and commit" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
     "Read design doc" -> "Identify actors and actions";
     "Identify actors and actions" -> "Write behavioural scenarios";
-    "Write behavioural scenarios" -> "Define edge cases and error behaviours";
-    "Define edge cases and error behaviours" -> "Present spec to user for review";
-    "Present spec to user for review" -> "User approves?";
-    "User approves?" -> "Present spec to user for review" [label="no, revise"];
-    "User approves?" -> "Save spec doc and commit" [label="yes"];
+    "Write behavioural scenarios" -> "Present scenarios for approval";
+    "Present scenarios for approval" -> "User approves scenarios?";
+    "User approves scenarios?" -> "Present scenarios for approval" [label="no, revise"];
+    "User approves scenarios?" -> "Define edge cases and error behaviours" [label="yes"];
+    "Define edge cases and error behaviours" -> "Surface risky assumptions\none at a time";
+    "Surface risky assumptions\none at a time" -> "More assumptions?";
+    "More assumptions?" -> "Surface risky assumptions\none at a time" [label="yes"];
+    "More assumptions?" -> "Write final spec" [label="no"];
+    "Write final spec" -> "Present spec to user for review";
+    "Present spec to user for review" -> "User approves spec?";
+    "User approves spec?" -> "Present spec to user for review" [label="no, revise"];
+    "User approves spec?" -> "Save spec doc and commit" [label="yes"];
     "Save spec doc and commit" -> "Invoke writing-plans skill";
 }
 ```
@@ -55,10 +67,13 @@ You MUST create a task for each of these items and complete them in order:
 1. **Read the design doc** — load the design document produced by brainstorming
 2. **Identify actors and actions** — who interacts with this system and what do they do?
 3. **Write behavioural scenarios** — Given/When/Then for each key behaviour
-4. **Define edge cases and error behaviours** — what happens when things go wrong?
-5. **Present spec for review** — walk through scenarios with user, revise until approved
-6. **Save spec doc** — write to `docs/plans/YYYY-MM-DD-<feature-name>-spec.md` and commit
-7. **Transition to implementation planning** — invoke writing-plans skill
+4. **Get user approval on scenarios** — present scenarios, revise until approved. This validates the foundation before building edge cases on top of it
+5. **Define edge cases and error behaviours** — what happens when things go wrong? Identify assumptions you're making about correct behaviour
+6. **Surface risky assumptions** — present the most uncertain assumptions and their related edge cases to the user, one at a time (see below)
+7. **Write final spec** — compile approved scenarios, resolved edge cases, and confirmed behaviours into the spec document
+8. **Present final spec for review** — walk through the complete spec with user, revise until approved
+9. **Save spec doc** — write to `docs/plans/YYYY-MM-DD-<feature-name>-spec.md` and commit
+10. **Transition to implementation planning** — invoke writing-plans skill
 
 ## Scenario Format
 
@@ -85,6 +100,33 @@ For scenarios with multiple outcomes or variations, use a table:
 | [action B] | [outcome B] |
 | [invalid action] | [error outcome] |
 ```
+
+## Surfacing Risky Assumptions
+
+After defining edge cases, identify assumptions where your "common sense" default might be wrong. These are cases where domain knowledge, business rules, or user expectations could differ from what seems obvious.
+
+**One at a time.** Present each risky assumption as a single question. Do not batch them. Wait for the user's answer before moving to the next one. This mirrors the brainstorming skill's one-question-at-a-time pattern — it prevents overwhelming the user and lets each answer inform how you frame the next question.
+
+**What makes an assumption risky:**
+- The correct behaviour depends on business context you don't have (e.g., "should expired tokens return 401 or silently refresh?")
+- Two reasonable behaviours exist and picking wrong would be costly to change later
+- The edge case involves user-facing messaging or policy decisions
+- You're guessing at error recovery strategy (retry? fail? degrade?)
+
+**How to present each assumption:**
+1. State the edge case or scenario concretely
+2. Explain what you assumed and why
+3. Ask what should actually happen — solicit the answer, don't just confirm your guess
+
+**Example:**
+
+> **Edge case:** A user submits a form while their session is expiring.
+>
+> I assumed we should reject the submission and redirect to login, but it's also reasonable to extend the session and accept the submission.
+>
+> **What should happen here?**
+
+**When to stop:** Once you've surfaced all assumptions where you're genuinely uncertain. Skip obvious cases (e.g., "should invalid JSON return a 400?" — yes, obviously). The goal is to catch the assumptions where being wrong would produce a spec that technically works but does the wrong thing.
 
 ## Spec Document Structure
 
