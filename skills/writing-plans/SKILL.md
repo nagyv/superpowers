@@ -37,6 +37,8 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Goal:** [One sentence describing what this builds]
 
+**Design document:** `docs/plans/YYYY-MM-DD-<feature-name>-spec.md`
+
 **Behavioural spec:** `docs/plans/YYYY-MM-DD-<feature-name>-spec.md`
 
 **Architecture:** [2-3 sentences about approach]
@@ -100,19 +102,5 @@ git commit -m "feat: add specific feature"
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to `docs/plans/<filename>.md`. Commit and push to git.**
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
-
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Stay in this session
-- Fresh subagent per task + code review
-
-**If Parallel Session chosen:**
-- Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
