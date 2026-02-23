@@ -15,15 +15,6 @@ Next up, once you say "go", it launches a *subagent-driven-development* process,
 There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
 
 
-## Sponsorship
-
-If Superpowers has helped you do stuff that makes money and you are so inclined, I'd greatly appreciate it if you'd consider [sponsoring my opensource work](https://github.com/sponsors/obra).
-
-Thanks! 
-
-- Jesse
-
-
 ## Installation
 
 **Note:** Installation differs by platform. Claude Code or Cursor have built-in plugin marketplaces. Codex and OpenCode require manual setup.
@@ -81,17 +72,13 @@ Start a new session in your chosen platform and ask for something that should tr
 
 2. **writing-behavioural-specs** - Activates after design approval. Turns the design into concrete, testable behavioural scenarios (Given/When/Then). Defines edge cases, error behaviours, and out-of-scope items. Saves spec document.
 
-3. **using-git-worktrees** - Activates before implementation. Creates isolated workspace on new branch, runs project setup, verifies clean test baseline.
-
 4. **writing-plans** - Activates with approved behavioural spec. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps. Tasks trace back to spec scenarios.
 
-5. **subagent-driven-development** or **executing-plans** - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality), or executes in batches with human checkpoints.
+5. **subagent-driven-development** - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality).
 
 6. **test-driven-development** - Activates during implementation. Enforces RED-GREEN-REFACTOR: write failing test, watch it fail, write minimal code, watch it pass, commit. Deletes code written before tests.
 
 7. **requesting-code-review** - Activates between tasks. Reviews against plan, reports issues by severity. Critical issues block progress.
-
-8. **finishing-a-development-branch** - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
 
 **The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
 
@@ -110,12 +97,9 @@ Start a new session in your chosen platform and ask for something that should tr
 - **brainstorming** - Socratic design refinement
 - **writing-behavioural-specs** - Given/When/Then behavioural scenarios from approved designs
 - **writing-plans** - Detailed implementation plans
-- **executing-plans** - Batch execution with checkpoints
 - **dispatching-parallel-agents** - Concurrent subagent workflows
 - **requesting-code-review** - Pre-review checklist
 - **receiving-code-review** - Responding to feedback
-- **using-git-worktrees** - Parallel development branches
-- **finishing-a-development-branch** - Merge/PR decision workflow
 - **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
 
 **Meta**
