@@ -25,13 +25,13 @@ There's a bunch more to it, but that's the core of the system. And because the s
 In Claude Code, register the marketplace first:
 
 ```bash
-/plugin marketplace add obra/superpowers-marketplace
+claude plugin marketplace add nagyv/superpowers-marketplace
 ```
 
 Then install the plugin from this marketplace:
 
 ```bash
-/plugin install superpowers@superpowers-marketplace
+claude plugin install superpowers@superpowers-marketplace
 ```
 
 ### Cursor (via Plugin Marketplace)
